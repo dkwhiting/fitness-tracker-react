@@ -1,0 +1,51 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  background-color: rgb(103, 182, 255);
+  width: 100%;
+  padding: 5px 10%;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header>* {
+  margin: 0;
+  padding: 0;
+}
+
+.login form {
+  text-align: center;
+  width: 300px;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.login input {
+  padding: 10px;
+}
+
+.login form button {
+  font-size: 20px;
+  color: white;
+  background-color: rgb(103, 182, 255);
+  border: none;
+  padding: 10px;
+}
+
+.login form button:hover {
+  background-color: rgb(64, 148, 226);
+  cursor: pointer;
+}
+
+.login p {
+  margin: 0;
+}
