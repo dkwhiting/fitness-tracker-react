@@ -6,8 +6,8 @@ const Header = ({ token, setToken, user, setUser }) => {
     <div className="header">
       <h1>fitness-tracker</h1>
       {token
-        ? <button onClick={() => setToken(null)}>Logout</button>
-        : <button>Log In</button>
+        ? <a onClick={() => setToken(null)}>Logout</a>
+        : <a>Log In</a>
       }
     </div>
   );
