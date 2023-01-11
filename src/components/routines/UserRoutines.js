@@ -1,20 +1,10 @@
-import userEvent from "@testing-library/user-event";
 
-
-const UserRoutines = ({ routines, user }) => {
-
+const UserRoutines = ({ userRoutines, user }) => {
 
   return (
     <div className="routines">
-      {routines
-        ? routines
-          .filter((routine) => {
-            if (routine.creatorId === user.id) {
-              return true
-            } else {
-              return false
-            }
-          })
+      {userRoutines.length > 0
+        ? userRoutines
           .map((routine) => {
             return (<div className="single-routine" key={routine.id}>
               <div className="routine-creator-name">

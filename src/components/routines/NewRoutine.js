@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { postRoutine } from '../../api/activities'
+import { postRoutine, postActivityToRoutine } from '../../api/activities'
 
 
 const NewRoutine = ({ token, user, activities }) => {
@@ -16,7 +16,7 @@ const NewRoutine = ({ token, user, activities }) => {
 
   const sortedActivities = activities
     .sort((a, b) => {
-      if (a.name < b.name) {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
         return -1
       } else {
         return 1
@@ -25,15 +25,31 @@ const NewRoutine = ({ token, user, activities }) => {
 
   const submitRoutineHandler = async (event) => {
     event.preventDefault()
+
     try {
-      const postedRoutine = await postRoutine(token, user.id, routineName, routineGoal, isPublic)
+      const postedRoutine = await postRoutine(
+        token,
+        user.id,
+        routineName,
+        routineGoal,
+        isPublic)
+
       if (postedRoutine.name != routineName) {
         setSubmitMessage(postedRoutine.message)
       } else {
-
         try {
-
-
+          activitiesToAdd.map(async (activity) => {
+            const postedActivityToRoutine = await postActivityToRoutine(
+              token,
+              postedRoutine.id,
+              activity.id,
+              activity.count,
+              activity.duration)
+            console.log(postedActivityToRoutine)
+          })
+          setActivitiesToAdd([])
+          setRoutineName('')
+          setRoutineGoal('')
         } catch (error) {
           console.error(error)
         }
@@ -41,8 +57,8 @@ const NewRoutine = ({ token, user, activities }) => {
       }
 
 
-    } catch (submit) {
-      console.submit(submit)
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -67,7 +83,7 @@ const NewRoutine = ({ token, user, activities }) => {
       setActivity('')
       setCount('')
       setDuration('')
-
+      setSubmitMessage('')
     }
   }
 
@@ -84,16 +100,35 @@ const NewRoutine = ({ token, user, activities }) => {
       <div className="routine-forms">
 
         <form id="create-routine" onSubmit={(event) => submitRoutineHandler(event)}>
-          <input value={routineName} placeholder='Name' onChange={(event) => setRoutineName(event.target.value)}></input>
-          <textarea value={routineGoal} placeholder='Goal' onChange={(event) => setRoutineGoal(event.target.value)}></textarea>
+          <input
+            value={routineName}
+            placeholder='Name'
+            onChange={(event) =>
+              setRoutineName(event.target.value)
+            }>
+          </input>
+          <textarea
+            value={routineGoal}
+            placeholder='Goal'
+            onChange={(event) => setRoutineGoal(event.target.value)}>
+          </textarea>
           <label>Private Routine
-            <input value={isPublic} className="public" type="checkbox" onChange={() => setIsPublic(!isPublic)}></input>
+            <input
+              value={isPublic}
+              className="public"
+              type="checkbox"
+              onChange={() => setIsPublic(!isPublic)}>
+            </input>
           </label>
 
         </form>
-        <form id="add-activity" onSubmit={(event) => submitActivityHandler(event)}>
+        <form
+          id="add-activity"
+          onSubmit={(event) => submitActivityHandler(event)}>
 
-          <select value={activity} onChange={(event) => setActivity(event.target.value)}>
+          <select
+            value={activity}
+            onChange={(event) => setActivity(event.target.value)}>
             <option>Select Activity...</option>
             {
               sortedActivities.map((activity, index) => {
@@ -101,16 +136,27 @@ const NewRoutine = ({ token, user, activities }) => {
               })
             }
           </select>
+
           <div className='new-routine-inputs'>
             <div className='input-div'>
-
               <label>Count
-                <input value={count} type="text" className='count' onChange={(event) => setCount(event.target.value)}></input>
+                <input
+                  value={count}
+                  type="text"
+                  className='count'
+                  onChange={(event) => setCount(event.target.value)}>
+                </input>
               </label>
             </div>
+
             <div className='input-div'>
               <label>Duration
-                <input value={duration} type="text" className='duration' onChange={(event) => setDuration(event.target.value)}></input>
+                <input
+                  value={duration}
+                  type="text"
+                  className='duration'
+                  onChange={(event) => setDuration(event.target.value)}>
+                </input>
               </label>
             </div>
           </div>
@@ -120,15 +166,15 @@ const NewRoutine = ({ token, user, activities }) => {
 
       <button type="submit" form="create-routine">Create Routine</button>
       <div className="routine-activities">
-        {activitiesToAdd
+        {activitiesToAdd.length > 0
           ? activitiesToAdd.map((activity, index) => {
             return (
               <div key={index}>
-                {activity.id} - Count: {activity.count} x Duration: {activity.duration}
+                {activity.name} - Count: {activity.count} x Duration: {activity.duration}
               </div>
             )
           })
-          : <></>
+          : "Add some activities to this routine!"
         }
       </div>
     </div >

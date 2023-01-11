@@ -11,22 +11,30 @@ import { getActivities } from './api/activities';
 import { getMe } from './api/auth';
 
 const App = () => {
-  const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')))
+  const [token, setToken] = useState(localStorage.getItem('token'))
   const [user, setUser] = useState(null)
   const [activities, setActivities] = useState([])
 
   useEffect(() => {
-    const getUser = async (token) => {
+    const getUser = async () => {
       const data = await getMe(token)
       setUser(data)
+      console.log('getUser Data', data)
     }
+
     const fetchActivities = async () => {
       const data = await getActivities()
       setActivities(data)
     }
-    if (token) { getUser(token) }
+
+    if (token) {
+      getUser()
+      console.log(user)
+    }
+
+    console.log('THIS IS USER', user)
     fetchActivities()
-    console.log(user)
+
   }, [token])
 
   return (

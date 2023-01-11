@@ -11,23 +11,6 @@ const getRoutines = async () => {
   }
 }
 
-const getMyRoutines = async (token, user) => {
-  try {
-    const response = await fetch(`${API_URL}/routines/${user.id}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    const data = await response.json()
-    console.log('THIS IS DATA', data)
-    return data
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const getActivities = async () => {
   try {
     const response = await fetch(`${API_URL}/activities`)
@@ -59,10 +42,31 @@ const postRoutine = async (token, creatorId, name, goal, isPublic) => {
     console.error(error)
   }
 }
+const postActivityToRoutine = async (token, routineId, activityId, count, duration) => {
+  try {
+    const response = await fetch(`${API_URL}/routines/${routineId}/activities`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        activityId,
+        count,
+        duration
+      })
+    })
+    const data = await response.json()
+    console.log('THIS IS DATA', data)
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 module.exports = {
   getRoutines,
-  getMyRoutines,
   getActivities,
-  postRoutine
+  postRoutine,
+  postActivityToRoutine
 }

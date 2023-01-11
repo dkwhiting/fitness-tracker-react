@@ -16,7 +16,7 @@ const RoutinesNavBar = () => {
         className={({ isActive }) =>
           isActive ? "active-nav" : undefined
         }>
-        <button>Your Routines</button>
+        <button>My Routines</button>
       </NavLink>
       <NavLink
         to="/routines/new"
