@@ -5,6 +5,7 @@ import RoutinesNavBar from "./RoutinesNavBar";
 import PublicRoutines from "./PublicRoutines";
 import UserRoutines from "./UserRoutines";
 import NewRoutine from "./NewRoutine";
+import NotFound from "../NotFound";
 
 
 const Routines = ({ token, user, activities }) => {
@@ -23,20 +24,26 @@ const Routines = ({ token, user, activities }) => {
           return false
         }
       })
+      if (user) {
+        setUserRoutines(userRoutines)
+      }
       setRoutines(publicRoutines)
-      setUserRoutines(userRoutines)
     }
     fetchRoutines()
   }, [token, user])
 
   return (
     <>
-      <RoutinesNavBar />
+      <RoutinesNavBar token={token} />
       <Routes>
         <Route exact path="/" element={<Navigate to='public' replace />} />
         <Route element={<PublicRoutines routines={routines} />} path='public' />
-        <Route element={<UserRoutines userRoutines={userRoutines} user={user} />} path='user/' />
+        <Route element={<UserRoutines userRoutines={userRoutines} user={user} token={token} activities={activities} />} path='user/' />
         <Route element={<NewRoutine token={token} activities={activities} user={user} />} path='new' />
+        <Route
+          element={<NotFound />}
+          path="/*"
+        />
       </Routes>
     </>
 

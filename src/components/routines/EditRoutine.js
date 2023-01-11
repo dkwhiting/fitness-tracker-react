@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { postRoutine, postActivityToRoutine } from '../../api/activities'
+import { updateRoutine, postActivityToRoutine } from '../../api/activities'
 
 
-const NewRoutine = ({ token, user, activities }) => {
+const EditRoutine = ({ token, user, activities, postToEdit }) => {
   const [activity, setActivity] = useState('')
-  const [routineName, setRoutineName] = useState('')
-  const [routineGoal, setRoutineGoal] = useState('')
+  const [routineName, setRoutineName] = useState(postToEdit.name)
+  const [routineGoal, setRoutineGoal] = useState(postToEdit.goal)
   const [isPublic, setIsPublic] = useState(true)
   const [count, setCount] = useState('')
   const [duration, setDuration] = useState('')
@@ -28,21 +28,21 @@ const NewRoutine = ({ token, user, activities }) => {
     event.preventDefault()
 
     try {
-      const postedRoutine = await postRoutine(
+      const editedRoutine = await updateRoutine(
         token,
         user.id,
         routineName,
         routineGoal,
         isPublic)
 
-      if (postedRoutine.name != routineName) {
-        setSubmitMessage(postedRoutine.message)
+      if (editedRoutine.name != routineName) {
+        setSubmitMessage(editedRoutine.message)
       } else {
         try {
           activitiesToAdd.map(async (activity) => {
             const postedActivityToRoutine = await postActivityToRoutine(
               token,
-              postedRoutine.id,
+              editedRoutine.id,
               activity.id,
               activity.count,
               activity.duration)
@@ -189,4 +189,4 @@ const NewRoutine = ({ token, user, activities }) => {
   );
 }
 
-export default NewRoutine;
+export default EditRoutine;

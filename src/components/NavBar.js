@@ -18,6 +18,13 @@ const NavBar = () => {
         }>
         <button>Routines</button>
       </NavLink>
+      <NavLink
+        to="activities"
+        className={({ isActive }) =>
+          isActive ? "active-nav" : undefined
+        }>
+        <button>Activities</button>
+      </NavLink>
 
     </div>
   );

@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom'
 
-const RoutinesNavBar = () => {
+const RoutinesNavBar = ({ token }) => {
 
   return (
-    <div className="routine-navbar">
+    <div className="sub-navbar">
       <NavLink
         to="/routines/public"
         className={({ isActive }) =>
@@ -11,13 +11,16 @@ const RoutinesNavBar = () => {
         }>
         <button>Public Routines</button>
       </NavLink>
-      <NavLink
-        to="/routines/user"
-        className={({ isActive }) =>
-          isActive ? "active-nav" : undefined
-        }>
-        <button>My Routines</button>
-      </NavLink>
+      {token
+        ? <NavLink
+          to="/routines/user"
+          className={({ isActive }) =>
+            isActive ? "active-nav" : undefined
+          }>
+          <button>My Routines</button>
+        </NavLink>
+        : <></>
+      }
       <NavLink
         to="/routines/new"
         className={({ isActive }) =>

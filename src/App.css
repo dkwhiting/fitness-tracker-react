@@ -37,6 +37,8 @@
   gap: 20px;
 }
 
+
+
 .single-routine {
   width: 400px;
   margin: 0 20px;
@@ -46,6 +48,25 @@
   border-radius: 20px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.4);
   flex: 0 1 auto;
+}
+
+.single-activity {
+  width: 400px;
+  margin: 0 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.4);
+  flex: 0 1 auto;
+}
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
 }
 
 .navbar {
@@ -76,7 +97,7 @@
   cursor: pointer;
 }
 
-.routine-navbar {
+.sub-navbar {
   background-color: rgb(64, 148, 226);
   width: 100%;
   height: 40px;
@@ -86,7 +107,7 @@
 }
 
 
-.routine-navbar button {
+.sub-navbar button {
   font-weight: 100;
   color: white;
   background-color: rgb(64, 148, 226);
@@ -108,6 +129,10 @@
 .routine-forms {
   display: flex;
   gap: 20px;
+}
+
+.routine-header {
+  display: flex;
 }
 
 .new-routine form {
@@ -141,7 +166,23 @@
   padding: 10px;
 }
 
-.routine-navbar .active-nav button {
+.new-activity {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-activity form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-navbar .active-nav button {
   font-weight: bold;
 }
 
