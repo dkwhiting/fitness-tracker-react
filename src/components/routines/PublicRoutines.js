@@ -1,6 +1,6 @@
 
 
-const SingleRoutine = ({ routines }) => {
+const PublicRoutines = ({ routines }) => {
 
 
   return (
@@ -27,4 +27,4 @@ const SingleRoutine = ({ routines }) => {
   );
 }
 
-export default SingleRoutine;
+export default PublicRoutines;

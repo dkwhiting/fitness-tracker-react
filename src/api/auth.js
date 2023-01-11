@@ -1,4 +1,5 @@
-const API_URL = process.env.REACT_APP_API_URL
+// const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL_DEV
 
 const loginUser = async (username, password) => {
   try {
@@ -38,12 +39,12 @@ const registerUser = async (username, password) => {
   }
 }
 
-const getMe = async () => {
+const getMe = async (token) => {
   try {
-    const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/me', {
+    const response = await fetch(`${API_URL}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer TOKEN_STRING_HERE'
+        'Authorization': `Bearer ${token}`
       },
     })
     const data = await response.json()

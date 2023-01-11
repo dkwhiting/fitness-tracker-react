@@ -8,6 +8,7 @@ import Home from './components/Home'
 import NavBar from './components/NavBar';
 import Routines from './components/routines/Routines';
 import { getActivities } from './api/activities';
+import { getMe } from './api/auth';
 
 const App = () => {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')))
@@ -15,11 +16,17 @@ const App = () => {
   const [activities, setActivities] = useState([])
 
   useEffect(() => {
+    const getUser = async (token) => {
+      const data = await getMe(token)
+      setUser(data)
+    }
     const fetchActivities = async () => {
       const data = await getActivities()
       setActivities(data)
     }
+    if (token) { getUser(token) }
     fetchActivities()
+    console.log(user)
   }, [token])
 
   return (

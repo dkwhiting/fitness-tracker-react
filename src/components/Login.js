@@ -10,39 +10,19 @@ const Login = ({ user, setUser, token, setToken }) => {
   const submitHandler = async (event) => {
     event.preventDefault()
     try {
-      let data
-      switch (login) {
-        case 'login':
-          data = await loginUser(username, password);
-          break;
-        case 'register':
-          data = await registerUser(username, password)
-          break;
-      }
-      if (data) {
+      if (login === 'login') {
+        const data = await loginUser(username, password)
         setToken(data.token)
         localStorage.setItem('token', JSON.stringify(data.token))
-        setUser(data.user)
+        setUsername('')
+        setPassword('')
       }
-      setUsername('')
-      setPassword('')
-
-
-      // if (login === 'login') {
-      //   const data = await loginUser(username, password)
-      //   setToken(data.token)
-      //   localStorage.setItem('token', JSON.stringify(data.token))
-      //   setUser(data.user)
-      //   setUsername('')
-      //   setPassword('')
-      // }
-      // if (login === 'register') {
-      //   const data = await registerUser(username, password)
-      //   setToken(data.token)
-      //   setUser(data.user)
-      //   setUsername('')
-      //   setPassword('')
-      // }
+      if (login === 'register') {
+        const data = await registerUser(username, password)
+        setToken(data.token)
+        setUsername('')
+        setPassword('')
+      }
     } catch (error) {
       console.error(error)
     }

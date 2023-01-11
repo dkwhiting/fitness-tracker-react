@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
-import { getRoutines } from "../../api/activities";
+import { getRoutines, getMyRoutines } from "../../api/activities";
 import RoutinesNavBar from "./RoutinesNavBar";
-import SingleRoutine from "./SingleRoutine";
+import PublicRoutines from "./PublicRoutines";
+import UserRoutines from "./UserRoutines";
 import NewRoutine from "./NewRoutine";
 
 
@@ -14,16 +15,8 @@ const Routines = ({ token, user, activities }) => {
 
   useEffect(() => {
     const fetchRoutines = async () => {
-      const data = await getRoutines()
-      setRoutines(data)
-      setUserRoutines(
-        data.filter((routine) => {
-          if (routine.creatorId === user.id) {
-            return true
-          }
-          return false
-        })
-      )
+      const publicRoutines = await getRoutines()
+      setRoutines(publicRoutines)
     }
     fetchRoutines()
   }, [token])
@@ -33,9 +26,9 @@ const Routines = ({ token, user, activities }) => {
       <RoutinesNavBar />
       <Routes>
         <Route exact path="/" element={<Navigate to='public' replace />} />
-        <Route element={<SingleRoutine routines={routines} />} path='public' />
-        <Route element={<SingleRoutine userRoutines={userRoutines} />} path='user' />
-        <Route element={<NewRoutine activities={activities} />} path='new' />
+        <Route element={<PublicRoutines routines={routines} />} path='public' />
+        <Route element={<UserRoutines routines={routines} user={user} />} path='user/' />
+        <Route element={<NewRoutine token={token} activities={activities} user={user} />} path='new' />
       </Routes>
     </>
 
