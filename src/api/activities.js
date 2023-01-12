@@ -21,10 +21,32 @@ const getActivities = async () => {
   }
 }
 
-const postRoutine = async (token, creatorId, name, goal, isPublic) => {
+const postRoutine = async (token, name, goal, isPublic) => {
   try {
     const response = await fetch(`${API_URL}/routines`, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        goal,
+        isPublic
+      })
+    })
+    const data = await response.json()
+    console.log('THIS IS DATA', data)
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const updateRoutine = async (token, routineId, name, goal, isPublic) => {
+  try {
+    const response = await fetch(`${API_URL}/routines/${routineId}`, {
+      method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -90,6 +112,7 @@ module.exports = {
   getRoutines,
   getActivities,
   postRoutine,
+  updateRoutine,
   postActivityToRoutine,
   postActivity
 }

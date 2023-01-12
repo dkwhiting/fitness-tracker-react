@@ -16,7 +16,7 @@ const ActivitiesNavBar = () => {
         className={({ isActive }) =>
           isActive ? "active-nav" : undefined
         }>
-        <button>New Activity</button>
+        <button>Create Activity</button>
       </NavLink>
 
     </div>

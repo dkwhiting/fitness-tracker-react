@@ -5,29 +5,33 @@ import RoutinesNavBar from "./RoutinesNavBar";
 import PublicRoutines from "./PublicRoutines";
 import UserRoutines from "./UserRoutines";
 import NewRoutine from "./NewRoutine";
+import UserProfile from "../UserProfile";
 import NotFound from "../NotFound";
 
 
 const Routines = ({ token, user, activities }) => {
   const [routines, setRoutines] = useState([])
-  const [userRoutines, setUserRoutines] = useState([])
+  const [myRoutines, setUserRoutines] = useState([])
 
 
 
   useEffect(() => {
     const fetchRoutines = async () => {
       const publicRoutines = await getRoutines()
-      const userRoutines = publicRoutines.filter((routine) => {
-        if (routine.creatorId === user.id) {
+      console.log("This is routines useEffect user", user)
+      const myRoutines = publicRoutines.filter((routine) => {
+        if (user && routine.creatorId === user.id) {
           return true
         } else {
           return false
         }
       })
       if (user) {
-        setUserRoutines(userRoutines)
+        setUserRoutines(myRoutines)
+        console.log(myRoutines)
       }
       setRoutines(publicRoutines)
+      console.log(publicRoutines)
     }
     fetchRoutines()
   }, [token, user])
@@ -37,9 +41,33 @@ const Routines = ({ token, user, activities }) => {
       <RoutinesNavBar token={token} />
       <Routes>
         <Route exact path="/" element={<Navigate to='public' replace />} />
-        <Route element={<PublicRoutines routines={routines} />} path='public' />
-        <Route element={<UserRoutines userRoutines={userRoutines} user={user} token={token} activities={activities} />} path='user/' />
-        <Route element={<NewRoutine token={token} activities={activities} user={user} />} path='new' />
+        <Route
+          element={<PublicRoutines
+            routines={routines}
+            user={user}
+            token={token}
+            activities={activities} />}
+          path='public' />
+        <Route
+          element={<UserRoutines
+            myRoutines={myRoutines}
+            user={user}
+            token={token}
+            activities={activities} />}
+          path='user/' />
+        <Route
+          element={<NewRoutine
+            token={token}
+            activities={activities}
+            user={user} />}
+          path='new' />
+        <Route
+          element={<UserProfile
+            token={token}
+            routines={routines}
+            user={user}
+            activities={activities} />}
+          path='/:userId' />
         <Route
           element={<NotFound />}
           path="/*"

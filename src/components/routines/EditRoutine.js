@@ -2,7 +2,7 @@ import { useState } from "react"
 import { updateRoutine, postActivityToRoutine } from '../../api/activities'
 
 
-const EditRoutine = ({ token, user, activities, postToEdit }) => {
+const EditRoutine = ({ token, user, activities, currentActivities, postToEdit }) => {
   const [activity, setActivity] = useState('')
   const [routineName, setRoutineName] = useState(postToEdit.name)
   const [routineGoal, setRoutineGoal] = useState(postToEdit.goal)
@@ -11,7 +11,9 @@ const EditRoutine = ({ token, user, activities, postToEdit }) => {
   const [duration, setDuration] = useState('')
   const [submitMessage, setSubmitMessage] = useState('')
 
+  const [activitiesToDelete, setActivitiesToDelete] = useState([])
   const [activitiesToAdd, setActivitiesToAdd] = useState([])
+  const [activitiesToDisplay, setActivitiesToDisplay] = useState(currentActivities)
   const [newRoutine, setNewRoutine] = useState([])
 
   const sortedActivities =
@@ -30,7 +32,7 @@ const EditRoutine = ({ token, user, activities, postToEdit }) => {
     try {
       const editedRoutine = await updateRoutine(
         token,
-        user.id,
+        postToEdit.id,
         routineName,
         routineGoal,
         isPublic)
@@ -85,14 +87,26 @@ const EditRoutine = ({ token, user, activities, postToEdit }) => {
       setCount('')
       setDuration('')
       setSubmitMessage('')
+      console.log(activitiesToAdd)
     }
+  }
+
+  const removeActivityHandler = (index) => {
+    const activitiesList = [...activitiesToAdd]
+    activitiesList.splice(index, 1)
+    setActivitiesToAdd(activitiesList)
+    console.log(activitiesList)
+  }
+
+  const deleteActivityHandler = async () => {
+
   }
 
   return (
     <div className="new-routine">
       {!token
-        ? <h2>Login to create a routine</h2>
-        : <><h2>New Routine</h2>
+        ? <h2>Must be logged in to edit routine</h2>
+        : <>
           {submitMessage
             ? <div className="submit-message">
               <h3>{submitMessage}</h3>
@@ -167,17 +181,38 @@ const EditRoutine = ({ token, user, activities, postToEdit }) => {
             </form>
           </div>
 
-          <button type="submit" form="create-routine">Create Routine</button>
+          <button type="submit" form="create-routine">Submit</button>
           <div className="routine-activities">
-            {activitiesToAdd.length > 0
-              ? activitiesToAdd.map((activity, index) => {
+
+
+            {currentActivities
+              ? currentActivities.map((activity, index) => {
                 return (
-                  <div key={index}>
-                    {activity.name} - Count: {activity.count} x Duration: {activity.duration}
+                  <div className="activity-to-add" key={index}>
+                    <div className="left">
+                      {activity.name} - Count: {activity.count} x Duration: {activity.duration}
+                    </div>
+                    <div className="remove-button">
+                      <button onClick={() => deleteActivityHandler(index)}>X</button>
+                    </div>
                   </div>
                 )
               })
-              : "Add some activities to this routine!"
+              : <>Oh no</>
+            }
+
+            {activitiesToAdd.map((activity, index) => {
+              return (
+                <div className="activity-to-add" key={index}>
+                  <div className="left">
+                    {activity.name} - Count: {activity.count} x Duration: {activity.duration}
+                  </div>
+                  <div className="remove-button">
+                    <button onClick={() => removeActivityHandler(index)}>X</button>
+                  </div>
+                </div>
+              )
+            })
             }
           </div>
         </>

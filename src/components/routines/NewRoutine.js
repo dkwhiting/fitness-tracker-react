@@ -30,7 +30,6 @@ const NewRoutine = ({ token, user, activities }) => {
     try {
       const postedRoutine = await postRoutine(
         token,
-        user.id,
         routineName,
         routineGoal,
         isPublic)

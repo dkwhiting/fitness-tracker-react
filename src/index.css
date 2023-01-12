@@ -26,6 +26,21 @@ code {
 }
 
 textarea {
+  height: 100%;
   resize: none;
   font-family: inherit;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+  margin: 5px;
+}
+
+ul li {
+  list-style-type: circle;
+}
+
+p {
+  margin: 0;
 }

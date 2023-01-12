@@ -35,7 +35,7 @@ const NewActivity = ({ token, activities }) => {
           }
           <div className="activity-form">
 
-            <form id="create-routine" onSubmit={(event) => submitHandler(event)}>
+            <form id="create-activity" onSubmit={(event) => submitHandler(event)}>
               <input
                 value={activityName}
                 placeholder='Name'
@@ -51,7 +51,7 @@ const NewActivity = ({ token, activities }) => {
               </textarea>
 
 
-              <button type="submit">Create Routine</button>
+              <button type="submit">Create Activity</button>
             </form>
 
           </div>
