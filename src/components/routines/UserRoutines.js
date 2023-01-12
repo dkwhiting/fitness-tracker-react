@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import EditRoutine from "./EditRoutine";
 Modal.setAppElement('#root');
 
-const UserRoutines = ({ myRoutines, token, activities, user }) => {
+const UserRoutines = ({ myRoutines, token, activities, user, setUserToView }) => {
   const [showEdit, setShowEdit] = useState(false)
   const [postToEdit, setPostToEdit] = useState(null)
   const [currentActivities, setCurrentActivities] = useState([])
@@ -67,7 +67,7 @@ const UserRoutines = ({ myRoutines, token, activities, user }) => {
 
                     {routine.name}
                   </div>
-                  <div className="routine-creator-name" onClick={() => navigate(`/routines/${routine.creatorId}`)}>
+                  <div className="routine-creator-name" onClick={() => { navigate(`/routines/${routine.creatorId}`); setUserToView(routine.creatorName) }}>
                     by {routine.creatorName}
                   </div>
                   <div className="routine-goal">

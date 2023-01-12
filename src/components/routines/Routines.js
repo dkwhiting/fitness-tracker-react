@@ -12,8 +12,7 @@ import NotFound from "../NotFound";
 const Routines = ({ token, user, activities }) => {
   const [routines, setRoutines] = useState([])
   const [myRoutines, setUserRoutines] = useState([])
-
-
+  const [userToView, setUserToView] = useState(null)
 
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -46,14 +45,17 @@ const Routines = ({ token, user, activities }) => {
             routines={routines}
             user={user}
             token={token}
-            activities={activities} />}
+            activities={activities}
+            setUserToView={setUserToView} />}
+
           path='public' />
         <Route
           element={<UserRoutines
             myRoutines={myRoutines}
             user={user}
             token={token}
-            activities={activities} />}
+            activities={activities}
+            setUserToView={setUserToView} />}
           path='user/' />
         <Route
           element={<NewRoutine
@@ -66,7 +68,8 @@ const Routines = ({ token, user, activities }) => {
             token={token}
             routines={routines}
             user={user}
-            activities={activities} />}
+            activities={activities}
+            userToView={userToView} />}
           path='/:userId' />
         <Route
           element={<NotFound />}

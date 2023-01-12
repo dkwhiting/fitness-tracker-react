@@ -6,7 +6,7 @@ Modal.setAppElement('#root');
 
 
 
-const UserProfile = ({ token, user, activities, routines }) => {
+const UserProfile = ({ token, user, activities, routines, userToView }) => {
 
 
   const [showEdit, setShowEdit] = useState(false)
@@ -60,6 +60,7 @@ const UserProfile = ({ token, user, activities, routines }) => {
         <EditRoutine token={token} activities={activities} user={user} postToEdit={postToEdit} currentActivities={currentActivities} />
 
       </Modal>
+      <h2>{userToView}'s Routines</h2>
       {routines
         ? routines.filter((routine) => {
           if (routine.creatorId == userId) {
