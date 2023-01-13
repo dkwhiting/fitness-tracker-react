@@ -2,7 +2,7 @@ import { useState } from "react"
 import { postRoutine, postActivityToRoutine } from '../../api/activities'
 
 
-const NewRoutine = ({ token, user, activities }) => {
+const NewRoutine = ({ token, user, activities, updater, setUpdater }) => {
   const [activity, setActivity] = useState('')
   const [routineName, setRoutineName] = useState('')
   const [routineGoal, setRoutineGoal] = useState('')
@@ -45,18 +45,16 @@ const NewRoutine = ({ token, user, activities }) => {
               activity.id,
               activity.count,
               activity.duration)
-            console.log(postedActivityToRoutine)
           })
           setActivitiesToAdd([])
           setRoutineName('')
           setRoutineGoal('')
+          setUpdater(!updater)
         } catch (error) {
           console.error(error)
         }
         setSubmitMessage('Routine Created!')
       }
-
-
     } catch (error) {
       console.error(error)
     }
@@ -68,24 +66,38 @@ const NewRoutine = ({ token, user, activities }) => {
       setSubmitMessage('Activity must have name, count, and duration')
     } else {
       const activitiesList = [...activitiesToAdd]
-      const filteredActivity = activities.filter((act) => {
-        if (act.name === activity) {
-          return true
-        }
-      })
-      const newActivity = {}
-      newActivity.id = filteredActivity[0].id
-      newActivity.name = activity
-      newActivity.count = count
-      newActivity.duration = duration
-      activitiesList.push(newActivity)
-      setActivitiesToAdd(activitiesList)
-      setActivity('')
-      setCount('')
-      setDuration('')
-      setSubmitMessage('')
+      const activitiesNames = activitiesList.map(activity => activity.name)
+      if (activitiesNames.includes(activity)) {
+        setSubmitMessage('Can not add the same activity more than once')
+      } else {
+        activities.map(act => {
+          if (activity === act.name) {
+            const newActivity = {}
+            newActivity.id = act.id
+            newActivity.name = activity
+            newActivity.count = count
+            newActivity.duration = duration
+            activitiesList.push(newActivity)
+            setActivitiesToAdd(activitiesList)
+            setUpdater(!updater)
+          }
+        })
+      }
     }
   }
+
+  const removeActivityHandler = (activityName) => {
+    const activitiesList = [...activitiesToAdd]
+    const activitiesNames = activitiesList.map(activity => activity.name)
+    const index = activitiesNames.indexOf(activityName)
+    if (index !== -1) {
+      activitiesList.splice(index, 1)
+    }
+    setActivitiesToAdd(activitiesList)
+    setUpdater(!updater)
+    console.log(activityName)
+  }
+
 
   return (
     <div className="new-routine">
@@ -171,8 +183,10 @@ const NewRoutine = ({ token, user, activities }) => {
             {activitiesToAdd.length > 0
               ? activitiesToAdd.map((activity, index) => {
                 return (
-                  <div key={index}>
-                    {activity.name} - Count: {activity.count} x Duration: {activity.duration}
+                  <div className="activity-to-add" key={index}>
+                    {activity.name}
+                    - Count: {activity.count} x Duration: {activity.duration}
+                    <button onClick={() => removeActivityHandler(activity.name)}>X</button>
                   </div>
                 )
               })

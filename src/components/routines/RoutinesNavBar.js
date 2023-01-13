@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom'
 
-const RoutinesNavBar = ({ token }) => {
+const RoutinesNavBar = ({ token, user, setUserToView }) => {
+
+  const userUrl = user ? `/routines/${user.username}` : ''
 
   return (
     <div className="sub-navbar">
@@ -13,11 +15,11 @@ const RoutinesNavBar = ({ token }) => {
       </NavLink>
       {token
         ? <NavLink
-          to="/routines/user"
+          to={userUrl}
           className={({ isActive }) =>
             isActive ? "active-nav" : undefined
           }>
-          <button>My Routines</button>
+          <button onClick={() => setUserToView(user.username)}>My Routines</button>
         </NavLink>
         : <></>
       }

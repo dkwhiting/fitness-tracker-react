@@ -16,58 +16,89 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [user, setUser] = useState(null)
   const [activities, setActivities] = useState([])
+  const [updater, setUpdater] = useState(true)
 
   useEffect(() => {
     const getUser = async () => {
       const data = await getMe(token)
       setUser(data)
-      console.log('getUser Data', data)
     }
 
     const fetchActivities = async () => {
       const data = await getActivities()
       setActivities(data)
-      console.log('THIS IS FETCH ACTIVITIES', data)
     }
 
     if (token) {
       getUser()
-      console.log(user)
     }
 
-    console.log('THIS IS USER', user)
     fetchActivities()
 
-  }, [token])
+  }, [token, updater])
 
   return (
     <div className="app">
-      <Header token={token} setToken={setToken} user={user} setUser={setUser} />
+      <Header
+        token={token}
+        setToken={setToken}
+        user={user}
+        setUser={setUser}
+      />
       <NavBar />
       <div className="container">
         <Routes>
-          <Route exact path="/" element={<Navigate to='home' replace />} />
           <Route
-            element={<Login token={token} setToken={setToken} user={user} setUser={setUser} />}
+            exact path="/"
+            element={
+              <Navigate
+                to='home'
+                replace
+              />}
+          />
+          <Route
+            element={
+              <Login
+                token={token}
+                setToken={setToken}
+                user={user}
+                setUser={setUser}
+              />}
             exact path="/login"
           />
           <Route
             element={token
               ? <Home />
-              : <Navigate to='/login' replace />}
+              : <Navigate to='/login' replace
+              />}
 
             exact path="/home"
           />
           <Route
-            element={<Routines token={token} user={user} activities={activities} />}
+            element={
+              <Routines
+                token={token}
+                user={user}
+                activities={activities}
+                updater={updater}
+                setUpdater={setUpdater}
+              />}
             path="/routines/*"
           />
           <Route
-            element={<Activities token={token} user={user} activities={activities} />}
+            element={<Activities
+              token={token}
+              user={user}
+              activities={activities}
+              updater={updater}
+              setUpdater={setUpdater}
+            />}
             path="/activities/*"
           />
           <Route
-            element={<NotFound />}
+            element={
+              <NotFound
+              />}
             path="/*"
           />
         </Routes>
