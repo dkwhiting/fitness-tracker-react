@@ -38,10 +38,7 @@ const PublicRoutines = ({ routines, token, activities, user, setUserToView, upda
   const closeModal = () => {
     setShowEdit(false)
     setUpdater(!updater)
-
   }
-
-
 
 
   return (
@@ -76,9 +73,9 @@ const PublicRoutines = ({ routines, token, activities, user, setUserToView, upda
           user={user}
           postToEdit={postToEdit}
           currentActivities={currentActivities}
-          updater={setUpdater}
+          updater={updater}
           setUpdater={setUpdater}
-
+          setShowEdit={setShowEdit}
         />
 
       </Modal>

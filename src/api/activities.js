@@ -153,6 +153,27 @@ const deleteRoutine = async (token, routineId) => {
   }
 }
 
+const updateActivity = async (token, activityId, name, description) => {
+  try {
+    const response = await fetch(`${API_URL}/activities/${activityId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        description
+      })
+    })
+    const data = await response.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   getRoutines,
   getRoutinesByUsername,
@@ -161,5 +182,6 @@ module.exports = {
   updateRoutine,
   postActivityToRoutine,
   postActivity,
-  deleteRoutine
+  deleteRoutine,
+  updateActivity
 }

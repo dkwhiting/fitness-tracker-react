@@ -94,14 +94,42 @@
 
 
 .single-activity {
+  position: relative;
   width: 400px;
   margin: 0 20px;
   padding: 15px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   border-radius: 20px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.4);
   flex: 0 1 auto;
+  overflow: hidden;
+}
+
+.single-activity .activity-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.activity-edit i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(64, 148, 226);
+  color: white;
+  right: -40px;
+  top: 5px;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-edit i:hover {
+  background-color: orangered;
+  cursor: pointer;
 }
 
 .routine-edit,
@@ -132,10 +160,44 @@
 }
 
 .activities {
+
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 20px;
+}
+
+.edit-activity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-activity form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.edit-activity-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.edit-activity h3 {
+  margin: 0;
+}
+
+.activities .new-activity .edit-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .modal-header {
@@ -226,12 +288,20 @@
 .new-routine {
   position: relative;
   width: 500px;
+  margin-top: 20px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 20px;
+}
+
+.container .new-routine {
+  width: 550px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+
 }
 
 .new-routine h2,

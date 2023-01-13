@@ -52,7 +52,6 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
             setRoutineName('')
             setRoutineGoal('')
             setShowEdit(false)
-            setUpdater(!updater)
           } catch (error) {
             console.error(error)
           }
@@ -65,6 +64,7 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
     } catch (error) {
       console.error(error)
     }
+    setUpdater(!updater)
   }
 
   const submitActivityHandler = (event) => {
@@ -74,17 +74,19 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
     } else {
       const activitiesList = [...activitiesToAdd]
       const activitiesNames = activitiesList.map(activity => activity.name)
+      console.log(activities)
       if (activitiesNames.includes(activity)) {
         setSubmitMessage('Can not add the same activity more than once')
       } else {
         activities.map(act => {
-          if (activity === act.name) {
+          if (activity.trim() === act.name.trim()) {
             const newActivity = {}
             newActivity.id = act.id
             newActivity.name = activity
             newActivity.count = count
             newActivity.duration = duration
             activitiesList.push(newActivity)
+            console.log(newActivity)
             setActivitiesToAdd(activitiesList)
             setUpdater(!updater)
           }

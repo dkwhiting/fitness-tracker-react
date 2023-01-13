@@ -25,7 +25,7 @@ const UserProfile = ({ token, user, activities, routines, userToView, updater, s
     }
 
     getUserRoutines()
-  }, [userToView])
+  }, [userToView, updater, activities])
 
   const handleEdit = (localActivities) => {
     const newArr = []

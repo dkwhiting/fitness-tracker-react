@@ -4,7 +4,7 @@ import { getRoutines } from "../../api/activities";
 import RoutinesNavBar from "./RoutinesNavBar";
 import PublicRoutines from "./PublicRoutines";
 import NewRoutine from "./NewRoutine";
-import UserProfile from "./UserRoutines";
+import UserRoutines from "./UserRoutines";
 import NotFound from "../NotFound";
 
 
@@ -63,7 +63,7 @@ const Routines = ({ token, user, activities, updater, setUpdater }) => {
           path='new'
         />
         <Route
-          element={<UserProfile
+          element={<UserRoutines
             token={token}
             routines={routines}
             user={user}

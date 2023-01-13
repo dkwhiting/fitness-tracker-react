@@ -4,13 +4,13 @@ import AllActivities from './AllActivities';
 import NewActivity from './NewActivity';
 import NotFound from '../NotFound';
 
-const Activities = ({ token, activities }) => {
+const Activities = ({ token, activities, updater, setUpdater }) => {
 
   return (
     <>
       <ActivitiesNavBar />
       <Routes>
-        <Route exact path="/" element={<AllActivities activities={activities} />} />
+        <Route exact path="/" element={<AllActivities token={token} activities={activities} updater={updater} setUpdater={setUpdater} />} />
         <Route exact path="/new" element={<NewActivity activities={activities} token={token} />} />
         <Route
           element={<NotFound />}
