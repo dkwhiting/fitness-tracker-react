@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import Modal from "react-modal";
 import EditRoutine from "./EditRoutine";
 import { deleteRoutine, getRoutinesByUsername } from "../../api/activities"
+import Modal from "react-modal";
 Modal.setAppElement('#root');
 
 
