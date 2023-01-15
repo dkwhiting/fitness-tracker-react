@@ -31,7 +31,6 @@ const AllActivities = ({ activities, token, updater, setUpdater }) => {
     event.preventDefault();
     try {
       const editedActivity = await updateActivity(token, postToEdit.id, activityName, activityDescription)
-      console.log(editedActivity)
 
       setActivityName('')
       setActivityDescription('')

@@ -29,7 +29,6 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
 
     try {
       const deletedRoutine = await deleteRoutine(token, postToEdit.id)
-      console.log(deletedRoutine)
       if (deletedRoutine.success) {
         const postedRoutine = await postRoutine(
           token,
@@ -52,19 +51,19 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
             setRoutineName('')
             setRoutineGoal('')
             setShowEdit(false)
+            setUpdater(!updater)
           } catch (error) {
             console.error(error)
           }
         }
 
-        setSubmitMessage('Routine Created!')
       } else if (deletedRoutine.error) {
         setSubmitMessage(`Error: ${deletedRoutine.error}`)
       }
     } catch (error) {
       console.error(error)
     }
-    setUpdater(!updater)
+
   }
 
   const submitActivityHandler = (event) => {
@@ -74,7 +73,6 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
     } else {
       const activitiesList = [...activitiesToAdd]
       const activitiesNames = activitiesList.map(activity => activity.name)
-      console.log(activities)
       if (activitiesNames.includes(activity)) {
         setSubmitMessage('Can not add the same activity more than once')
       } else {
@@ -86,8 +84,10 @@ const EditRoutine = ({ token, user, activities, updater, setUpdater, postToEdit,
             newActivity.count = count
             newActivity.duration = duration
             activitiesList.push(newActivity)
-            console.log(newActivity)
             setActivitiesToAdd(activitiesList)
+            setActivity('')
+            setCount('')
+            setDuration('')
             setUpdater(!updater)
           }
         })

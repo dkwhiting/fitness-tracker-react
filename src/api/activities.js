@@ -146,7 +146,6 @@ const deleteRoutine = async (token, routineId) => {
       }
     })
     const data = await response.json()
-    console.log(data)
     return data
   } catch (error) {
     console.error(error)
@@ -167,7 +166,6 @@ const updateActivity = async (token, activityId, name, description) => {
       })
     })
     const data = await response.json()
-    console.log(data)
     return data
   } catch (error) {
     console.error(error)

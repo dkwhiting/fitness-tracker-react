@@ -79,6 +79,9 @@ const NewRoutine = ({ token, user, activities, updater, setUpdater }) => {
             newActivity.duration = duration
             activitiesList.push(newActivity)
             setActivitiesToAdd(activitiesList)
+            setActivity('Select Activity...')
+            setCount('')
+            setDuration('')
             setUpdater(!updater)
           }
         })
@@ -95,7 +98,6 @@ const NewRoutine = ({ token, user, activities, updater, setUpdater }) => {
     }
     setActivitiesToAdd(activitiesList)
     setUpdater(!updater)
-    console.log(activityName)
   }
 
 
