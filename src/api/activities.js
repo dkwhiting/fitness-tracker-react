@@ -1,7 +1,7 @@
 const API_URL = process.env.REACT_APP_API_URL
 // const API_URL = process.env.REACT_APP_API_URL_DEV
 
-const getRoutines = async () => {
+export const getRoutines = async () => {
   try {
     const response = await fetch(`${API_URL}/routines`)
     const data = await response.json()
@@ -11,7 +11,7 @@ const getRoutines = async () => {
   }
 }
 
-const getRoutinesByUsername = async (username, token) => {
+export const getRoutinesByUsername = async (username, token) => {
   if (token) {
     try {
       const response = await fetch(`${API_URL}/users/${username}/routines`, {
@@ -43,7 +43,7 @@ const getRoutinesByUsername = async (username, token) => {
   }
 }
 
-const getActivities = async () => {
+export const getActivities = async () => {
   try {
     const response = await fetch(`${API_URL}/activities`)
     const data = await response.json()
@@ -53,7 +53,7 @@ const getActivities = async () => {
   }
 }
 
-const postRoutine = async (token, name, goal, isPublic) => {
+export const postRoutine = async (token, name, goal, isPublic) => {
   try {
     const response = await fetch(`${API_URL}/routines`, {
       method: "POST",
@@ -74,7 +74,7 @@ const postRoutine = async (token, name, goal, isPublic) => {
   }
 }
 
-const updateRoutine = async (token, routineId, name, goal, isPublic) => {
+export const updateRoutine = async (token, routineId, name, goal, isPublic) => {
   try {
     const response = await fetch(`${API_URL}/routines/${routineId}`, {
       method: "PATCH",
@@ -95,7 +95,7 @@ const updateRoutine = async (token, routineId, name, goal, isPublic) => {
   }
 }
 
-const postActivityToRoutine = async (token, routineId, activityId, count, duration) => {
+export const postActivityToRoutine = async (token, routineId, activityId, count, duration) => {
   try {
     const response = await fetch(`${API_URL}/routines/${routineId}/activities`, {
       method: "POST",
@@ -116,7 +116,7 @@ const postActivityToRoutine = async (token, routineId, activityId, count, durati
   }
 }
 
-const postActivity = async (token, name, description) => {
+export const postActivity = async (token, name, description) => {
   try {
     const response = await fetch(`${API_URL}/activities`, {
       method: "POST",
@@ -136,7 +136,7 @@ const postActivity = async (token, name, description) => {
   }
 }
 
-const deleteRoutine = async (token, routineId) => {
+export const deleteRoutine = async (token, routineId) => {
   try {
     const response = await fetch(`${API_URL}/routines/${routineId}`, {
       method: "DELETE",
@@ -152,7 +152,7 @@ const deleteRoutine = async (token, routineId) => {
   }
 }
 
-const updateActivity = async (token, activityId, name, description) => {
+export const updateActivity = async (token, activityId, name, description) => {
   try {
     const response = await fetch(`${API_URL}/activities/${activityId}`, {
       method: "PATCH",
@@ -172,14 +172,3 @@ const updateActivity = async (token, activityId, name, description) => {
   }
 }
 
-module.exports = {
-  getRoutines,
-  getRoutinesByUsername,
-  getActivities,
-  postRoutine,
-  updateRoutine,
-  postActivityToRoutine,
-  postActivity,
-  deleteRoutine,
-  updateActivity
-}

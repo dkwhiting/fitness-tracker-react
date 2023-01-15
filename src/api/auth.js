@@ -1,7 +1,7 @@
 const API_URL = process.env.REACT_APP_API_URL
 // const API_URL = process.env.REACT_APP_API_URL_DEV
 
-const loginUser = async (username, password) => {
+export const loginUser = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/users/login`, {
       method: "POST",
@@ -20,7 +20,7 @@ const loginUser = async (username, password) => {
   }
 }
 
-const registerUser = async (username, password) => {
+export const registerUser = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
       method: "POST",
@@ -39,7 +39,7 @@ const registerUser = async (username, password) => {
   }
 }
 
-const getMe = async (token) => {
+export const getMe = async (token) => {
   try {
     const response = await fetch(`${API_URL}/users/me`, {
       headers: {
@@ -54,8 +54,3 @@ const getMe = async (token) => {
   }
 }
 
-module.exports = {
-  loginUser,
-  registerUser,
-  getMe
-}
