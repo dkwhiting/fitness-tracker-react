@@ -17,13 +17,15 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "gh-pages": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -44,7 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "gh-pages": "^4.0.0"
-  }
+  "devDependencies": {}
 }
