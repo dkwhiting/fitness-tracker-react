@@ -49,7 +49,7 @@ const App = () => {
       <div className="container">
         <Routes>
           <Route
-            exact path="/"
+            exact path="fitness-tracker-react/"
             element={
               <Navigate
                 to='home'
@@ -64,7 +64,7 @@ const App = () => {
                 user={user}
                 setUser={setUser}
               />}
-            exact path="/login"
+            exact path="fitness-tracker-react/login"
           />
           <Route
             element={token
@@ -72,7 +72,7 @@ const App = () => {
               : <Navigate to='/login' replace
               />}
 
-            exact path="/home"
+            exact path="fitness-tracker-react/home"
           />
           <Route
             element={
@@ -83,7 +83,7 @@ const App = () => {
                 updater={updater}
                 setUpdater={setUpdater}
               />}
-            path="/routines/*"
+            path="fitness-tracker-react/routines/*"
           />
           <Route
             element={<Activities
@@ -93,7 +93,7 @@ const App = () => {
               updater={updater}
               setUpdater={setUpdater}
             />}
-            path="/activities/*"
+            path="fitness-tracker-react/activities/*"
           />
           <Route
             element={
